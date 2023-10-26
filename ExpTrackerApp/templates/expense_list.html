@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #0099ff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #0099ff;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #0099ff;
+        }
+
+        .no-expenses {
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Expense List</h1>
+
+    <ul>
+    {% for expense in expenses %}
+        <li>
+            <div>
+                <p>{{ expense.description }}</p>
+                <p>${{ expense.amount }} - {{ expense.date }}</p>
+            </div>
+            <div>
+                <a href="{% url 'update_expense' expense.id %}">Update</a>
+                <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+            </div>
+        </li>
+    {% empty %}
+        <p class="no-expenses">No expenses recorded yet.</p>
+    {% endfor %}
+    </ul>
+    <p>Total Expenses: ${{ total_expenses|default:"0.00" }}</p>
+    <a href="{% url 'add_expense' %}">Add Expense</a>
+</body>
+</html>

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ExpTrackerPro
+    buildCommand: "./build.sh"
+    env: python
+    startCommand: "gunicorn ExpTrackerPro.wsgi:application"
